@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmStock - Produce Inventory Tracker</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="topbar">
+    <div>
+        <h1>FarmStock</h1>
+        <p>Farmer's Produce Inventory Tracker</p>
+    </div>
+    <button onclick="loadDashboard()">Refresh</button>
+</header>
+
+<main class="container">
+    <section class="cards">
+        <div class="stat"><span>Total Crops</span><strong id="totalCrops">0</strong></div>
+        <div class="stat"><span>Total Harvested</span><strong id="totalHarvested">0</strong></div>
+        <div class="stat"><span>Total Sold</span><strong id="totalSold">0</strong></div>
+        <div class="stat"><span>Current Stock</span><strong id="currentStock">0</strong></div>
+    </section>
+
+    <section class="grid">
+        <div class="panel">
+            <h2>Add Crop</h2>
+            <form id="cropForm">
+                <label>Crop Name<input id="cropName" required placeholder="Tomato"></label>
+                <label>Unit<input id="cropUnit" value="kg" placeholder="kg"></label>
+                <button type="submit">Add Crop</button>
+            </form>
+        </div>
+
+        <div class="panel">
+            <h2>Log Harvest</h2>
+            <form id="harvestForm">
+                <label>Crop<select id="harvestCrop" required></select></label>
+                <label>Quantity<input id="harvestQty" type="number" step="0.01" min="0.01" required></label>
+                <label>Harvest Date<input id="harvestDate" type="date" required></label>
+                <label>Notes<input id="harvestNotes" placeholder="Batch A"></label>
+                <button type="submit">Save Harvest</button>
+            </form>
+        </div>
+
+        <div class="panel">
+            <h2>Record Sale</h2>
+            <form id="saleForm">
+                <label>Crop<select id="saleCrop" required></select></label>
+                <label>Quantity<input id="saleQty" type="number" step="0.01" min="0.01" required></label>
+                <label>Price / Unit<input id="salePrice" type="number" step="0.01" min="0.01" required></label>
+                <label>Sale Date<input id="saleDate" type="date" required></label>
+                <label>Buyer<input id="buyer" placeholder="Local Market"></label>
+                <button type="submit">Record Sale</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="section-head">
+            <div>
+                <h2>Current Stock</h2>
+                <p>Stock = total harvested − total sold</p>
+            </div>
+        </div>
+        <div id="message"></div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                <tr>
+                    <th>Crop</th><th>Unit</th><th>Harvested</th><th>Sold</th><th>Available Stock</th>
+                </tr>
+                </thead>
+                <tbody id="stockBody"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="section-head">
+            <div>
+                <h2>Revenue Report</h2>
+                <p>Revenue = quantity sold × price per unit</p>
+            </div>
+            <form id="revenueForm" class="date-form">
+                <input id="startDate" type="date" required>
+                <input id="endDate" type="date" required>
+                <button type="submit">View Revenue</button>
+            </form>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Crop</th><th>Revenue</th></tr></thead>
+                <tbody id="revenueBody"></tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<script src="/app.js"></script>
+</body>
+</html>
